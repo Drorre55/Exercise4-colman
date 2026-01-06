@@ -1,5 +1,7 @@
 #include "Utils.h"
 #include <stdbool.h>
+#include <string.h>
+#include <stdlib.h>
 
 
 /*
@@ -109,8 +111,46 @@ void FlipMatrix( int mat[MATRIX_SIZE][MATRIX_SIZE], int option )
 }
 //-----------------------------------------------------------------------------------------------//
 //Q4
+int* InsertionSortString(char str[], size_t len) {
+	int* ascii = malloc(len * sizeof *ascii);
+	if (!ascii) return -1;
+
+	for (int i = 0; i < len; i++) {
+		ascii[i] = str[i];
+	}
+
+	InsertionSort(ascii, len);
+	return ascii;
+}
+
 int CountSemiSimilar( char a[][M], char b[][M], int n )
 {
-	return 0;
+	int numSemiSimilar = n;
+	
+	for (int i = 0; i < n; i++) {
+		size_t lenA = strlen(a[i]);
+		size_t lenB = strlen(b[i]);
+		if (lenA != lenB) {
+			numSemiSimilar--;
+			continue;
+		}
+		
+		size_t len = lenA;
+
+		int* sortedAsciiA = InsertionSortString(a[i], len);
+		int* sortedAsciiB = InsertionSortString(b[i], len);
+
+		for (int j = 0; j < len; j++) {
+			if (sortedAsciiA[j] != sortedAsciiB[j]) {
+				numSemiSimilar--;
+				break;
+			} 
+		}
+		free(sortedAsciiA);
+		sortedAsciiA = NULL;
+		free(sortedAsciiB);
+		sortedAsciiB = NULL;
+	}
+	return numSemiSimilar;
 }
 //-----------------------------------------------------------------------------------------------//
