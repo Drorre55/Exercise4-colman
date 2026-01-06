@@ -70,7 +70,42 @@ void InsertionSort( int arr[], int size )
 //Q3
 void FlipMatrix( int mat[MATRIX_SIZE][MATRIX_SIZE], int option )
 {
-	
+	int matCopy[MATRIX_SIZE][MATRIX_SIZE];
+	memcpy(matCopy, mat, sizeof(int) * MATRIX_SIZE * MATRIX_SIZE);
+
+	switch (option) {
+	case 1:
+		for (int row = 0; row < MATRIX_SIZE; row++) {
+			for (int column = 0; column < MATRIX_SIZE; column++) {
+				mat[column][MATRIX_SIZE - 1 - row] = matCopy[row][column];
+			}
+		}
+		break;
+
+	case 2:
+		for (int row = 0; row < MATRIX_SIZE; row++) {
+			for (int column = 0; column < MATRIX_SIZE; column++) {
+				mat[MATRIX_SIZE - 1 - column][row] = matCopy[row][column];
+			}
+		}
+		break;
+
+	case 3:
+		for (int row = 0; row < MATRIX_SIZE; row++) {
+			for (int column = 0; column < MATRIX_SIZE; column++) {
+				mat[MATRIX_SIZE - 1 - row][column] = matCopy[row][column];
+			}
+		}
+		break;
+
+	case 4:
+		for (int row = 0; row < MATRIX_SIZE; row++) {
+			for (int column = 0; column < MATRIX_SIZE; column++) {
+				mat[row][MATRIX_SIZE - 1 - column] = matCopy[row][column];
+			}
+		}
+		break;
+	}
 }
 //-----------------------------------------------------------------------------------------------//
 //Q4
