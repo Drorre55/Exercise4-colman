@@ -36,9 +36,35 @@ int RemoveDuplicates( int arr[], int size )
 }
 //-----------------------------------------------------------------------------------------------//
 //Q2
+void MoveItemFromEndToStartSlice(int arr[], int start, int end, bool includeEdge) {
+	int itemToMove = arr[end];
+
+	start = includeEdge ? start - 1 : start;
+	for (int q = end - 1; q > start; q--) {
+		arr[q + 1] = arr[q];
+	}
+	// put current number in the start of the slice
+	arr[start + 1] = itemToMove;
+}
+
 void InsertionSort( int arr[], int size )
 {
-
+	for (int i = 1; i < size; i++) {
+		int currentNumber = arr[i];
+		
+		// iterate over the numbers to the left of current number, from closest to the farthest one
+		for (int j = i - 1; j >= 0; j--) {
+			int previousNumber = arr[j];
+			
+			if (currentNumber > previousNumber) {
+				MoveItemFromEndToStartSlice(arr, j, i, false);
+				break;
+			}
+			else if (j == 0) {
+				MoveItemFromEndToStartSlice(arr, j, i, true);
+			}
+		}
+	}
 }
 //-----------------------------------------------------------------------------------------------//
 //Q3
